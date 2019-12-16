@@ -22,12 +22,15 @@
         Utils.setSPName("");//设置SharePreference保存的文件名（默认config）
 
 ## 3、各类的功能 ##
-- StrUtils //字符串工具类
-- DeviceUtils //设备信息相关工具类
+- StrUtils 字符串工具类
+- DeviceUtils 设备信息相关工具类
 - SDCardUtils sd卡操作相关工具类
 - ScreenUtils 屏幕相关工具类
 - MD5Utils MD5加密工具
 - DisplayUtils 单位转换工具
 - BindingUtils databinding工具类，不需要手动调用
 - ArithUtil 精确数学四则运算工具
+
+- AppManager app管理类
+- VersionManager 版本管理
 
