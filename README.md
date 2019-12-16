@@ -13,7 +13,7 @@
 在dependencies 中添加依赖：
 
     
-    implementation 'com.github.xiaohaozi9825:RecyclerAdapterDatabinding:V1.1'
+    implementation 'com.github.xiaohaozi9825:AndroidUtils:v1.2'
 
 ## 2、初始化 ##
 在application中调用
