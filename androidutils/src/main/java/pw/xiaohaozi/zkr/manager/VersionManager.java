@@ -1,6 +1,5 @@
 package pw.xiaohaozi.zkr.manager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;

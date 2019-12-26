@@ -6,6 +6,10 @@ public class Utils {
     public static Context sContext;
     protected static String sSPName = "config";
 
+    /**
+     * 初始化，首次调用必须先初始化
+     * @param context
+     */
     public static void init(Context context) {
         sContext = context;
     }

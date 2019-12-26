@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * 获取android设备唯一标识码
  */
-public class GetAndroidUniqueMark {
+ class GetAndroidUniqueMark {
 
     public static String getUniqueId(Context context) {
         // ANDROID_ID是设备第一次启动时产生和存储的64bit的一个数，当设备被wipe后该数重置。

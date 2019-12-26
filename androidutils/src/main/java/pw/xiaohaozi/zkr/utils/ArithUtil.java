@@ -103,6 +103,7 @@ public class ArithUtil {
     public static BigDecimal div(String v1, String v2) {
         return div(v1, v2, DEF_DIV_SCALE);
     }
+
     /**
      * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指 定精度，以后的数字四舍五入。
      *
