@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
 import android.content.Context;
 import android.os.Build;

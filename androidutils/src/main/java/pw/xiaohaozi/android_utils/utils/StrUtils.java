@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
 /**
  * 字符串工具类

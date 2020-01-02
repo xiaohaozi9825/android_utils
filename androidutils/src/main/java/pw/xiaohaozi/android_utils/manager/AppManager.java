@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr.manager;
+package pw.xiaohaozi.android_utils.manager;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr;
+package pw.xiaohaozi.android_utils;
 
 import org.junit.Test;
 

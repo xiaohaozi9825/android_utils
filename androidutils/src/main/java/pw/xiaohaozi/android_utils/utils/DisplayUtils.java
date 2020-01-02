@@ -1,6 +1,6 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
-import pw.xiaohaozi.zkr.Utils;
+import pw.xiaohaozi.android_utils.Utils;
 
 /**
  * 单位转换工具

@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
 import android.text.Html;
 import android.text.Spanned;

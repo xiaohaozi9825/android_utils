@@ -1,7 +1,7 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
-import pw.xiaohaozi.zkr.Utils;
-import pw.xiaohaozi.zkr.manager.VersionManager;
+import pw.xiaohaozi.android_utils.Utils;
+import pw.xiaohaozi.android_utils.manager.VersionManager;
 
 public class DeviceUtils extends Utils {
     /**

@@ -1,11 +1,11 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.HashSet;
 
-import pw.xiaohaozi.zkr.Utils;
+import pw.xiaohaozi.android_utils.Utils;
 
 /**
  * SharePreference封装

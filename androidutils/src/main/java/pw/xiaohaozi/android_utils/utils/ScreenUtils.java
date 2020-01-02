@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import pw.xiaohaozi.zkr.Utils;
+import pw.xiaohaozi.android_utils.Utils;
 
 public class ScreenUtils extends Utils {
     /**

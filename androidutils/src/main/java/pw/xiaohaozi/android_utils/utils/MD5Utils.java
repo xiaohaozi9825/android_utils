@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr.utils;
+package pw.xiaohaozi.android_utils.utils;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

@@ -3,6 +3,7 @@ package com.iflytek.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import pw.xiaohaozi.zkr.Utils;
 import pw.xiaohaozi.zkr.utils.DeviceUtils;
+import pw.xiaohaozi.zkr.utils.ScreenUtils;
 import pw.xiaohaozi.zkr.utils.StrUtils;
 
 import android.os.Bundle;

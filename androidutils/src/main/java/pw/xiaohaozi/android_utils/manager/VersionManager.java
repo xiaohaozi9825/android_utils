@@ -1,4 +1,4 @@
-package pw.xiaohaozi.zkr.manager;
+package pw.xiaohaozi.android_utils.manager;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import androidx.core.content.FileProvider;
-import pw.xiaohaozi.zkr.Utils;
+import pw.xiaohaozi.android_utils.Utils;
 
 public class VersionManager {
     /**
