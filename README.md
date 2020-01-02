@@ -1,5 +1,6 @@
 # AndroidUtils使用 #
 ## 1、添加依赖库 ##
+[![](https://jitpack.io/v/xiaohaozi9825/android_utils.svg)](https://jitpack.io/#xiaohaozi9825/android_utils)
 
 在app build.gradle文件中android下添加：
 
