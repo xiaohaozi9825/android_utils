@@ -14,6 +14,8 @@
 
     
     implementation 'com.github.xiaohaozi9825:AndroidUtils:v1.2'
+    
+如果出现jar包重复问题，可以将修implementation改成compileOnly
 
 ## 2、初始化 ##
 在application中调用
