@@ -22,7 +22,9 @@ import java.io.PrintWriter;
 
 /**
  * SD卡相关辅助类
+ * @deprecated
  */
+@Deprecated
 public class SDCardUtils {
 
     /**
