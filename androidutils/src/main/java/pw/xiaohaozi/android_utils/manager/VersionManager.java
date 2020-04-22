@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.Settings;
 
 import java.io.File;
@@ -57,7 +56,6 @@ public class VersionManager {
     }
 
     public static String getVersionName() {
-
         PackageManager packageManager = Utils.sContext.getPackageManager();
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
         if (pinfo != null) {
@@ -80,7 +78,7 @@ public class VersionManager {
      *      <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
      * </pre>
      * <p>
-     * 2、创建文件 res/xml/file_paths
+     * 2、创建文件 res/xml/file_paths (这里我已经建好了，可以跳过该步骤)
      * <pre class="prettyprint">
      *      <?xml version="1.0" encoding="utf-8"?>
      *      <resources>
@@ -110,6 +108,7 @@ public class VersionManager {
      *               android:resource="@xml/file_paths" />
      *      </provider>
      * </pre>
+     * <p>
      * 4、在调用installProcess()方法的activity中重写onActivityResult()方法
      * <pre class="prettyprint">
      *     @Override
@@ -136,14 +135,14 @@ public class VersionManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //先获取是否有安装未知来源应用的权限
             if (!activity.getPackageManager().canRequestPackageInstalls()) {//没有权限
-                VersionManager.startInstallPermissionSettingActivity(activity, requestCode);
+                startInstallPermissionSettingActivity(activity, requestCode);
                 return;
             }
             //有权限，开始安装应用程序
-            VersionManager.install(app);
+            install(app);
         }
         //有权限，开始安装应用程序
-        VersionManager.install(app);
+        install(app);
     }
 
     /**
@@ -174,7 +173,7 @@ public class VersionManager {
      * 打开权限设置界面
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private static void startInstallPermissionSettingActivity(Activity activity, int requestCode) {
+    public static void startInstallPermissionSettingActivity(Activity activity, int requestCode) {
         //注意这个是8.0新API
         Uri packageURI = Uri.parse("package:" + activity.getPackageName());
         Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
