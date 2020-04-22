@@ -1,15 +1,19 @@
 package com.iflytek.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import pw.xiaohaozi.android_utils.Utils;
+import pw.xiaohaozi.android_utils.manager.VersionManager;
 import pw.xiaohaozi.android_utils.utils.FileUtils;
 
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +23,7 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE = 0;
+    private static final int INSTALL_PERMISS_CODE = 1;
     String TAG = "测试";
 
     @Override
@@ -53,20 +58,41 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "getFile(): " + FileUtils.getFile(FileUtils.getPublicDir(FileUtils.Type.DIRECTORY_MUSIC), "hello.mp3", "你妹", "你妹"));
         Log.i(TAG, "getFile(): " + FileUtils.getFile(FileUtils.getSDCardDir() + File.separator + "你妹", "hello.mp3"));
 
-        File file = FileUtils.getFile(FileUtils.getSDCardDir(), "hello.txt" , "你妹");
+        File file = FileUtils.getFile(FileUtils.getSDCardDir(), "hello.txt", "你妹");
         FileUtils.writer(file, "hello,你好呀");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Log.i(TAG, "读取: " + FileUtils.readString(file));
         }
+        app = FileUtils.getFile(FileUtils.getSDCardDir(), "讯飞语记.apk");
+        Log.i(TAG, "app: " + app.getAbsolutePath());
+        VersionManager.installProcess(this, app, INSTALL_PERMISS_CODE);
     }
+
+    File app;
+
 
     //判断授权的方法  授权成功直接调用写入方法  这是监听的回调
     //参数  上下文   授权结果的数组   申请授权的数组
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.i(TAG, "requestCode = " + requestCode + " grantResults[0]" + grantResults[0]);
         if (requestCode == REQUEST_WRITE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             writeToSdCard();
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == INSTALL_PERMISS_CODE) {
+            if (resultCode == RESULT_OK) {
+                VersionManager.install(app);
+            } else {
+                //这里可以用弹窗提示用户打开权限
+                Log.i(TAG, "onActivityResult: 用户没有开启安装权限");
+            }
         }
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    name：一个引用字符串。-->
+<!--    path：文件夹“相对路径”，完整路径取决于当前的标签类型。path可以为空，表示指定目录下的所有文件、文件夹都可以被共享。-->
+    <paths>
+        <external-path
+            name="download"
+            path=""/>
+    </paths>
+</resources>
