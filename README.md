@@ -21,8 +21,8 @@
 ## 2、初始化 ##
 在application中调用
      
-        Utils.init(this);
-        Utils.setSPName("");//设置SharePreference保存的文件名（默认config）
+    Utils.init(this);
+    Utils.setSPName("");//设置SharePreference保存的文件名（默认config）
 
 ## 3、各类的功能 ##
 - StrUtils 字符串工具类
