@@ -7,7 +7,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import pw.xiaohaozi.android_utils.Utils;
 import pw.xiaohaozi.android_utils.manager.VersionManager;
+import pw.xiaohaozi.android_utils.utils.DeviceUtils;
 import pw.xiaohaozi.android_utils.utils.FileUtils;
+import pw.xiaohaozi.android_utils.utils.GetAndroidUniqueMark;
 
 
 import android.Manifest;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE = 0;
     private static final int INSTALL_PERMISS_CODE = 1;
     String TAG = "测试";
+    File app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +38,18 @@ public class MainActivity extends AppCompatActivity {
         Utils.setSPName("");//设置SharePreference保存的文件名（默认config）
         //Android10需要在AndroidManifest.xml文件中的application 节点中添加 android:requestLegacyExternalStorage="true"
         //判断是否有这个权限
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //2、申请权限: 参数二：权限的数组；参数三：请求码
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE},
-                    REQUEST_WRITE);
-        } else {
-            writeToSdCard();
-        }
+//        if (ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            //2、申请权限: 参数二：权限的数组；参数三：请求码
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                            Manifest.permission.READ_EXTERNAL_STORAGE},
+//                    REQUEST_WRITE);
+//        } else {
+//            writeToSdCard();
+//        }
+        Log.i(TAG, "getUniqueId: " + DeviceUtils.getUniqueId());
+
     }
 
     private void writeToSdCard() {
@@ -68,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         VersionManager.installProcess(this, app, INSTALL_PERMISS_CODE);
     }
 
-    File app;
-
 
     //判断授权的方法  授权成功直接调用写入方法  这是监听的回调
     //参数  上下文   授权结果的数组   申请授权的数组
@@ -80,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_WRITE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             writeToSdCard();
         }
-
     }
 
     @Override

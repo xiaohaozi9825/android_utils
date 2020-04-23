@@ -3,18 +3,23 @@ package pw.xiaohaozi.android_utils.utils;
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 
 /**
  * 获取android设备唯一标识码
  */
- class GetAndroidUniqueMark {
+public class GetAndroidUniqueMark {
+    private static final String TAG = "GetAndroidUniqueMark";
 
     public static String getUniqueId(Context context) {
         // ANDROID_ID是设备第一次启动时产生和存储的64bit的一个数，当设备被wipe后该数重置。
-        String androidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        String id = androidID + Build.SERIAL; // +硬件序列号
+        String id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);//有些设备可能拿不到改值
+        id += Build.SERIAL; // +硬件序列号,android10 测试为 unknown
+        //下面这方法需要权限，且是系统权限，算是废了
+//        ((TelephonyManager) Utils.sContext.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
         try {
             return toMD5(id);
         } catch (NoSuchAlgorithmException e) {
@@ -22,6 +27,7 @@ import java.security.NoSuchAlgorithmException;
             return id;
         }
     }
+
 
     public static String toMD5(String text) throws NoSuchAlgorithmException {
         //获取摘要器 MessageDigest

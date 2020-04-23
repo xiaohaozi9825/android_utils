@@ -6,11 +6,13 @@ import pw.xiaohaozi.android_utils.manager.VersionManager;
 public class DeviceUtils extends Utils {
     /**
      * 获取设备唯一id
+     *
      * @return
      */
     public static String getUniqueId() {
         return GetAndroidUniqueMark.getUniqueId(sContext);
     }
+
 
     /**
      * 获取skd版本

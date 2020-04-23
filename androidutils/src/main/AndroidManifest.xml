@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pw.xiaohaozi.android_utils" />
+    package="pw.xiaohaozi.android_utils" >
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+</manifest>
