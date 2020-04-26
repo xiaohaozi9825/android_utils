@@ -3,18 +3,13 @@ package com.iflytek.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import pw.xiaohaozi.android_utils.Utils;
 import pw.xiaohaozi.android_utils.manager.VersionManager;
 import pw.xiaohaozi.android_utils.utils.DeviceUtils;
 import pw.xiaohaozi.android_utils.utils.FileUtils;
-import pw.xiaohaozi.android_utils.utils.GetAndroidUniqueMark;
+import pw.xiaohaozi.android_utils.utils.SPLastingUtils;
 
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -49,6 +44,27 @@ public class MainActivity extends AppCompatActivity {
 //            writeToSdCard();
 //        }
         Log.i(TAG, "getUniqueId: " + DeviceUtils.getUniqueId());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            SPLastingUtils.init("测试.json");
+            SPLastingUtils.clear();
+            SPLastingUtils.set("flo", 123.2);
+            double flo = SPLastingUtils.get("flo", Double.class);
+            Log.i(TAG, "onCreate:flo =  " + flo);
+
+
+            SPLastingUtils.set("hehe", "hello");
+            String hehe = SPLastingUtils.get("hehe", String.class);
+            Log.i(TAG, "onCreate:hehe =  " + hehe);
+
+            SPLastingUtils.set("bool",true);
+            SPLastingUtils.remove("bool");
+            boolean bool = SPLastingUtils.get("bool", false);
+            Log.i(TAG, "onCreate:bool =  " + bool);
+
+            SPLastingUtils.set("obj",new P("张三",18));
+            String obj = SPLastingUtils.get("obj","");
+            Log.i(TAG, "onCreate:obj =  " + obj);
+        }
 
     }
 
@@ -73,6 +89,39 @@ public class MainActivity extends AppCompatActivity {
         VersionManager.installProcess(this, app, INSTALL_PERMISS_CODE);
     }
 
+    public class P {
+        private String name;
+        private int size;
+
+        public P(String name, int size) {
+            this.name = name;
+            this.size = size;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getSize() {
+            return size;
+        }
+
+        public void setSize(int size) {
+            this.size = size;
+        }
+
+        @Override
+        public String toString() {
+            return "P{" +
+                    "name='" + name + '\'' +
+                    ", size=" + size +
+                    '}';
+        }
+    }
 
     //判断授权的方法  授权成功直接调用写入方法  这是监听的回调
     //参数  上下文   授权结果的数组   申请授权的数组
