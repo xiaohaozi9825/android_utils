@@ -6,9 +6,9 @@ import android.content.Context;
 import java.util.Stack;
 
 /**
- * App 管理类
+ * 改用ActivityManiger.java
  */
-
+@Deprecated
 public class AppManager {
     /**
      * 用于activity的管理和程序的
@@ -19,9 +19,6 @@ public class AppManager {
     private AppManager() {
     }
 
-    /**
-     * 单一实例
-     */
     public static AppManager getAppManager() {
         if (instance == null) {
             instance = new AppManager();
@@ -30,11 +27,12 @@ public class AppManager {
     }
 
     /**
-     * 添加Activity到堆
+     * @param activity
      */
     public void addActivity(Activity activity) {
         activityStack.add(activity);
     }
+
 
     /**
      * 获取当前Activity（堆栈中后一个压入的)
@@ -126,6 +124,7 @@ public class AppManager {
      * @return activity对象，若不存在则返回null
      */
     public Activity getActivity(Class<?> cls) {
+
         for (Activity activity : activityStack) {
             if (activity.getClass().equals(cls)) {
                 return activity;

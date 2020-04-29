@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import pw.xiaohaozi.android_utils.Utils;
+import pw.xiaohaozi.android_utils.manager.ActivityManager;
 import pw.xiaohaozi.android_utils.manager.VersionManager;
 import pw.xiaohaozi.android_utils.utils.DeviceUtils;
 import pw.xiaohaozi.android_utils.utils.FileUtils;
@@ -14,6 +15,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import java.io.File;
@@ -56,16 +58,35 @@ public class MainActivity extends AppCompatActivity {
             String hehe = SPLastingUtils.get("hehe", String.class);
             Log.i(TAG, "onCreate:hehe =  " + hehe);
 
-            SPLastingUtils.set("bool",true);
+            SPLastingUtils.set("bool", true);
             SPLastingUtils.remove("bool");
             boolean bool = SPLastingUtils.get("bool", false);
             Log.i(TAG, "onCreate:bool =  " + bool);
 
-            SPLastingUtils.set("obj",new P("张三",18));
-            String obj = SPLastingUtils.get("obj","");
+            SPLastingUtils.set("obj", new P("张三", 18));
+            String obj = SPLastingUtils.get("obj", "");
             Log.i(TAG, "onCreate:obj =  " + obj);
         }
 
+
+        ActivityManager.getInstance().add(this);
+        //如果我们一次start好几个Activity，那么只会执行一次onCreate()方法
+        //当你finish掉一个后，另一个Activity才会执行onCreate()方法
+//        startActivity(new Intent(this, TestActivity.class));
+//        startActivity(new Intent(this, TestActivity.class));
+//        startActivity(new Intent(this, TestActivity.class));
+//        startActivity(new Intent(this, TestActivity.class));
+
+//        new Handler().postDelayed(() -> startActivity(new Intent(this, TestActivity.class)), 1000);
+//        new Handler().postDelayed(() -> startActivity(new Intent(this, TestActivity.class)), 2000);
+//        new Handler().postDelayed(() -> startActivity(new Intent(this, TestActivity.class)), 3000);
+//        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityManager.getInstance().remove(this);
     }
 
     private void writeToSdCard() {
