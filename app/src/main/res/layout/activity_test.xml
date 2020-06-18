@@ -9,6 +9,7 @@
     android:padding="32dp"
     tools:context=".TestActivity">
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn1"
         android:layout_width="match_parent"
