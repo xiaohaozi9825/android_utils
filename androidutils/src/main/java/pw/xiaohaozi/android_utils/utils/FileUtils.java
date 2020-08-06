@@ -416,6 +416,7 @@ public class FileUtils extends Utils {
 
     /**
      * 读取文件内容
+     *
      * @param file
      * @return
      */
@@ -440,6 +441,7 @@ public class FileUtils extends Utils {
 
     /**
      * 读取文件内容
+     *
      * @param file
      * @return
      */
@@ -477,18 +479,102 @@ public class FileUtils extends Utils {
 
     /**
      * 读取文件内容
+     * 建议使用 readBitmap(String file)
+     *
      * @param file
      * @return
      */
+    @Deprecated
     public static Bitmap readBitmap(File file) {
-        byte[] data = readByte(file);
-        if (data == null) {
-            return null;
+//        byte[] data = readByte(file);
+//        if (data == null) {
+//            return null;
+//        }
+//        return BitmapFactory.decodeByteArray(data, 0, data.length);
+
+        return readBitmap(file.getAbsoluteFile());
+    }
+
+    public static Bitmap readBitmap(String file) {
+        return BitmapFactory.decodeFile(file);
+    }
+
+
+
+    /**
+     * 按比例压缩
+     *
+     * @param file
+     * @param ratio
+     * @return
+     */
+    public static Bitmap readBitmap(String file, float ratio) {
+        int reqWidth, reqHeight;
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file, options);
+        //如果图片过大，则压缩后再识别，否则识别不出二维码
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, (int) (options.outWidth * ratio + .5f),
+                (int) (options.outHeight * ratio + .5f));
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(file, options);
+    }
+
+    /**
+     * 获取压缩后的图像
+     * 实际拿到的是和我们需求相近的图片，但是这种方法效率高，内存占用小
+     *
+     * @param file
+     * @param minSize 将最小的边压缩到该值,另一边则按比例缩放
+     * @return
+     */
+    public static Bitmap readBitmap(String file, int minSize) {
+        int reqWidth, reqHeight;
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;//不返回位图，只返回图片信息
+        BitmapFactory.decodeFile(file, options);
+        options.inJustDecodeBounds = false;
+        //如果图片过大，则压缩后再识别，否则识别不出二维码
+        int min = Math.min(options.outWidth, options.outHeight);
+        if (min > minSize) {
+            float ratio = minSize / (float) min;
+            // Calculate inSampleSize
+            Log.i(TAG, "ratio: " + ratio);
+            options.inSampleSize = calculateInSampleSize(options, (int) (options.outWidth * ratio + .5f),
+                    (int) (options.outHeight * ratio + .5f));
+            Log.i(TAG, "inSampleSize: " + options.inSampleSize);
+            // Decode bitmap with inSampleSize set
+            return BitmapFactory.decodeFile(file, options);
+        } else {
+            return BitmapFactory.decodeFile(file);
         }
-        return BitmapFactory.decodeByteArray(data, 0, data.length);
+
     }
     /*-------------辅助方法-----------------------------------------------------------------------------------*/
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
 
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            //计算最大的inSampleSize值，该值以2为幂，并保持高度和宽度都大于请求的高度和宽度。
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
     /**
      * 生成文件
      * 如果文件存在则忽略，如果不存在则生成文件
