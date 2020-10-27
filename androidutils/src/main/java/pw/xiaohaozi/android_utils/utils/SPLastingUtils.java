@@ -157,7 +157,7 @@ public class SPLastingUtils {
 
     //辅助方法
     private static HashMap<String, String> fromMap(String json) {
-        Type type = new TypeToten(HashMap.class, String.class, String.class);
+        Type type = new TypeToken(HashMap.class, String.class, String.class);
         return sGson.fromJson(json, type);
     }
 }
